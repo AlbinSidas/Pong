@@ -2,6 +2,7 @@ import requests
 import pygame
 import pygame.locals
 from uuid import uuid4
+from game_state import Game_State
 
 class Screen():
 
@@ -12,16 +13,17 @@ class Screen():
         """
 
         self.identity = self.create_unique_id()
+        self.screen_width = 1200
+        self.screen_height = 960
         
-
     def create_unique_id(self):
-        # use the uuid4 to create an own ID to identify towards the gameserver
+        return str(uuid4())
 
     def start(self):
         pygame.init()
-        screen = pygame.display.set_mode((1200, 960))
-        #font = pygame.font.SysFont('Comic Sans MS', 30)
+        screen = pygame.display.set_mode((self.screen_width, self.screen_height))
         font = pygame.font.get_default_font()
+        font = pygame.font.SysFont(font, 24)
         clock = pygame.time.Clock()
         
         # Checks if user wants to close the game. 
@@ -64,6 +66,8 @@ class Screen():
             
             if len(key_list) != 0:
                 key = key_list.pop()
+
+                """
                 if key in key_converter:
                     
                     choice += key_converter[key]
@@ -71,17 +75,23 @@ class Screen():
                         choice = 0
                     elif choice < 0:
                         choice = 2
+                """
 
-                elif key == "13":
+                # Enterkey
+                if key == "13":
                     # TODO
+                    """
+                    Kommer endast att vara ett start alternativ. 
+                    Bör redan ha fått information om start states från 
+                    servern här, alltså bör en request skicaks typ direkt för att spela 
+                    där id etc är skickat till backenden. 
+                    """
                     if choice == 0:
-                        start_game = game_state.Game_State(self.config_object)
-
-                        outcome = start_game.start(screen, font)
                         
-                    elif choice == 1:
-                        outcome = self.config_object.start(screen, key_converter, font,
-                                                            self.screen_height, self.screen_width)
+                        game = Game_State(self)
+                        outcome = game.start()
+                        #outcome = start_game.start(screen, font)
+                   
                     elif choice == 2:
                         shut_down = True
 
@@ -97,7 +107,7 @@ class Screen():
                             self.screen_height = int(outcome[length - 2])
                             self.screen_width = int(outcome[length - 1])                    
                         
-                clock.tick(10)
+                clock.tick(5)
                     
     def render(self, screen, font, choice):#, sw, sh):
         """
@@ -119,7 +129,8 @@ class Screen():
 
         screen.fill((255,255,255))
 
-        #screen.blit(self.text(font, "Pong"))
+        screen.blit(self.text(font, "Press enter to start the game!"), (self.screen_width / 2.5, (self.screen_height) / 4))
+        
         """
         screen.blit(start, (sw/2, sh / 3))
         screen.blit(settings, (sw/2 - sw/40, sh / 2))
@@ -129,7 +140,7 @@ class Screen():
         pygame.display.update()
         pygame.display.flip()
         
-    def text(self, font, text, color = (11,102,35)):
+    def text(self, font, text, color = (0,0,0)):
         return font.render(text, False, color)
 
 
