@@ -24,7 +24,10 @@ var update_state = async function() {
 }
 
 app.get('/initialize', (req, res) => {
-  res.send('Hello World!')
+  console.log("INIT")
+  console.log(req.query)
+  // I query ligger id= playerid som playerobjektet ska instansieras med
+  res.send({greeting:'Hello World!'})
 })
 
 app.get('/move', (req, res) => {
