@@ -89,7 +89,5 @@ class Game_Board:
 
         """
         for entity in self.entities:
-            print(entity.color)
-            print(entity.get_entity_drawing_props())
             pygame.draw.rect(screen, entity.color, 
                             entity.get_entity_drawing_props())
