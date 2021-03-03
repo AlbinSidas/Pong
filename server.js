@@ -23,7 +23,7 @@ var update_state = async function() {
     // Sends states to the gameclients
 }
 
-app.get('/', (req, res) => {
+app.get('/initialize', (req, res) => {
   res.send('Hello World!')
 })
 
@@ -37,17 +37,6 @@ app.get('/move', (req, res) => {
   res.send('Hello World!')
 })
 
-app.get('/add_player', (req, res) => {
-  /* Add another player to the game */
-  
-  // Instanciate player
-
-  
-
-  res.send('Hello World!')
-
-})
-
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 
@@ -59,6 +48,20 @@ app.listen(port, () => {
 
 /* 
 Tankar inför backend:
+
+Starta ett game när första spelaren connectar:
+
+1. En första init görs då en spelare startar sin connection, alltså i screen när den startar upp bör detta göras.
+2. När denna request kommer ska spelplanen initieras på backend och en spelare ska läggas till
+3. I väntan på att en till spelare connectar kommer bollen inte att röra sig
+4. När den andra spelaren connectat??? gjort ett anrop att den ansluter så kommer bollen starta efter X tid
+5. För att skilja på spelarna kommer de att instancieras och jag kan hålla koll på identification genom clientens genereade ID
+6. 
+
+
+Gör initialize
+
+
 
 1. Skapa en funktion som bygger upp start state för en karta
 2. När denna karta skickas till klienterna ska klienten kunna rita upp denna
