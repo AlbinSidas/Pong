@@ -21,8 +21,6 @@ class Game_Board:
 
     def init_entities(self):
         # Find initial values for middle of the board.
-        max_right = self.world[0][-1]
-        max_left  = self.world[0][0]
         height_middle = len(self.world) // 2
         width_middle = len(self.world[0]) // 2
 
@@ -34,15 +32,15 @@ class Game_Board:
         ball_height = 1
         
         # p1 will be on the left side starting in middle
-        p1_pos = (max_left, height_middle - player_height//2, player_width, player_height)
-        player1 = Player(*p1_pos, 200, True)
+        p1_pos = [self.world[height_middle - (player_height//2)][1], player_width*self.tile_size, player_height*self.tile_size]
+        player1 = Player(*p1_pos, 255, True)
         
         # p2 will be on the right side starting in the middle
-        p2_pos = (max_right, height_middle - player_height//2, player_width, player_height)
-        player2 = Player(*p2_pos, 100, False)
+        p2_pos = [(self.world[height_middle - player_height//2][-2]), player_width*self.tile_size, player_height*self.tile_size]
+        player2 = Player(*p2_pos, 255, False)
 
         # Ball is spawned in the middle
-        ball_pos = (width_middle, height_middle - ball_height, ball_widht, ball_height)
+        ball_pos = (self.world[height_middle - ball_height][width_middle - 1], ball_widht*self.tile_size, ball_height*self.tile_size)
         ball     = Ball(*ball_pos, 255)
 
         self.entities.append(player1)
@@ -71,69 +69,27 @@ class Game_Board:
         return world
 
     def render(self, screen, font, entities=[]):
-        """
-        Handles all the positioning and updating for each frame. 
-        """
-        #world_side_length = self.tile_size * len(self.world)
-        #frame_pos_x = self.world[0][0][0]
-        #frame_pos_y = self.world[0][0][1]
-        #score_text = font.render("Your score: {}".format(snake.score),
-        #                         False, (0,0,0))
-
         screen.fill((255, 255, 255))
-        #screen.blit(score_text, (self.screen_width / 4 , self.screen_height / 1.7))
 
         pygame.draw.rect(screen, 0, (self.board_width_offset, self.board_height_offset,
                                      self.tile_size*self.map_width, self.tile_size*self.map_height), 1)
-        """
-        pygame.draw.rect(screen, 0, (frame_pos_x, frame_pos_y,
-                                     world_side_length, world_side_length), 1)
-        """
 
-        
-        self.drawer(screen, entities)#, snake, fruit_list)
+        self.drawer(screen)
         
         pygame.display.update()
         pygame.display.flip()
 
-    def drawer(self, screen, entities):
+    def drawer(self, screen):
         
         """
-        Kolla på om jag kan göra objekt av entities, 
-        iterera över entities, ta ut deras tiles/positioner
-        och sedan endast måla dessa, känns dum att behöva 
-        iterera över hela världen
-        """
-
-        for entity in self.entities:
-            pygame.draw.rect(screen, entity.color, 
-                            entity.get_entity_drawing_props())
-
-
         for lines in self.world:
             for tile in lines:
-                print(tile)
                 pygame.draw.rect(screen, 0,(tile[0], tile[1],
-                                            self.tile_size, self.tile_size), 1)
-                """
-                for body in snake.body:
+                                            self.tile_size, self.tile_size),1)
 
-                    if tuple(body) == tiles:
-                        #Checks where the head of the snake is on the board.
-                        pygame.draw.rect(screen, 0,(body[0], body[1],
-                                                    self.tile_size, self.tile_size))
-                
-                
-                if fruit_list[0].pos == tiles:
-                    pygame.draw.rect(screen, 155,
-                                    (tiles[0], tiles[1], self.tile_size, self.tile_size))
-                #Draws every rectangle in the playingfield
-                #pygame.draw.rect(screen, 0,(tiles[0], tiles[1],
-                #                          tile_width, tile_height), 1)
-                    
-                """
-                
-         
-
-
-
+        """
+        for entity in self.entities:
+            print(entity.color)
+            print(entity.get_entity_drawing_props())
+            pygame.draw.rect(screen, entity.color, 
+                            entity.get_entity_drawing_props())

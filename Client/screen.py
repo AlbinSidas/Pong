@@ -6,13 +6,7 @@ from game_state import Game_State
 from Board import Game_Board
 
 class Screen():
-
     def __init__(self):
-        """
-        Hantera input?
-        Lägga till vad man ska connecta mot på commandline?
-        """
-
         self.identity = self.create_unique_id()
         self.screen_width = 1200
         self.screen_height = 960
@@ -20,8 +14,8 @@ class Screen():
         
         # Gameboard
         self.game_board = Game_Board(tile_size = 10, 
-                                     n_tiles_width=10,
-                                     n_tiles_height=10,
+                                     n_tiles_width=25,
+                                     n_tiles_height=25,
                                      board_width_offset = self.screen_width / 5,
                                      board_height_offset = self.screen_height / 4)
         
