@@ -102,7 +102,6 @@ class Screen():
             # Låt board hantera sin egen render då den kommer hålla world
             self.game_board.render(screen, font)
         
-        
         pygame.display.update()
         pygame.display.flip()
         
