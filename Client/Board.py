@@ -28,6 +28,16 @@ class Game_Board:
 
                     player = Player(*pos, 255, player['id'] == client_identification)
                     self.entities.append(player)
+            
+            elif key == 'balls':
+                for ball in entities[key]:
+                    column = ball['x']
+                    row = ball['y']
+                    pos = (self.world[row][column], ball['width'] * self.tile_size, ball['height'] * self.tile_size)
+
+                    ball = Ball(*pos, 255)
+                    self.entities.append(ball)
+            
 
 
     def create_map(self):
@@ -72,6 +82,5 @@ class Game_Board:
 
         """
         for entity in self.entities:
-            print(entity)
             pygame.draw.rect(screen, entity.color, 
                             entity.get_entity_drawing_props())

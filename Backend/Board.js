@@ -1,6 +1,5 @@
 const Player = require('./Entities/Player');
-//import Player from './Backend/Entities/Player';
-//var Paddle = require('./paddle')
+const Ball = require('./Entities/Ball');
 
 class Board {
     constructor(x, y) {
@@ -17,6 +16,9 @@ class Board {
           'players' :[],
           'balls'   :[]
       }
+
+      this.initializeBall();
+
     }
    
     initializeGameboard() {
@@ -25,7 +27,6 @@ class Board {
         for (var row in gameBoard) {
             gameBoard[row] = new Array(this.boardWidth).fill(0)
         }
-        
         return gameBoard;
     }
 
@@ -40,14 +41,17 @@ class Board {
         let startX = this.entities.players.length == 0 ? 1 : this.gameBoard[0].length - 2;
         let startY = Math.floor(this.gameBoard.length / 2);
         
-        let player = new Player(startX, startY, id);
-        
+        let player = new Player(startX, startY, id);        
         this.entities.players.push(player);
+        
         return true;
     }
 
     initializeBall(){
-        // SKAPA BOLLEN
+        let startY = Math.floor(this.gameBoard.length / 2);
+        let startX = Math.floor(this.gameBoard[0].length / 2);
+        let ball = new Ball(startX, startY)
+        this.entities.balls.push(ball);
     }
 
     collisionCheck(){

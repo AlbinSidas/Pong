@@ -11,10 +11,7 @@ class Player {
       this.height = height;
       this.id = id;
       this.speed = speed;
-      this.type = "player";
-      this.side = side;
     }
   }
   
 module.exports = Player
-//export {Player};

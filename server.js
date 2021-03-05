@@ -24,11 +24,10 @@ app.get('/initialize', (req, res) => {
         // If there are already 2 players playing an error message will be shown to further players.
     } 
 
-    //gameBoard.success = success;
+    gameBoard.success = success;
     
     // TODO OBS DENNA FÖR TESTANDE AV FRONTEND
-
-    gameBoard.success = true;
+    //gameBoard.success = true;
     
     res.send(gameBoard);
 })
