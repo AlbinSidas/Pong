@@ -1,13 +1,7 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-
 const Board = require('./Backend/Board.js');
-
-
-//import {Player} from './Backend/Entities/Player.js'
-//import {Ball} from './Backend/Entities/Player.js'
-
 
 //let players = []
 var gameBoard = null;
@@ -31,8 +25,7 @@ app.get('/initialize', (req, res) => {
     } 
 
     gameBoard.success = success;
-    console.log(gameBoard)
-    // I query ligger id= playerid som playerobjektet ska instansieras med
+
     res.send(gameBoard);
 })
 
