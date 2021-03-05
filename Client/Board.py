@@ -15,11 +15,18 @@ class Game_Board:
         # Initialize world
         self.world = self.create_map()
         
-        # Initialize default enteties
+        # Initialize default entities
         self.entities = []
-        self.init_entities()
+        #self.init_entities()
 
     def init_entities(self):
+        """
+        DENNA FUNKTION BÖR GÖRAS OM FÖR ATT HANTERA
+        INPUT FRÅN SETTINGS SOM KOMMER FRÅN SERVERN
+        OCH DÄRMED INITIERA ENTITIES SPECIFIERAT FRÅN
+        SERVERN!
+        TODO OBS
+        """
         # Find initial values for middle of the board.
         height_middle = len(self.world) // 2
         width_middle = len(self.world[0]) // 2

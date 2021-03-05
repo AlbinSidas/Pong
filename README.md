@@ -28,3 +28,4 @@ Tankar inför backend:
 5. Hantera att rita ut spelare korrekt å den sida de är på just nu
 
 
+Gör globala sökningar på TODO och OBS för att finna saker att arbeta vidare på.
