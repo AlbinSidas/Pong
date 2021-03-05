@@ -45,15 +45,11 @@ class Screen():
     def start(self, baseURL):
 
         r = requests.get(baseURL + f"/initialize?id={self.identity}")
-        #print(json.loads(r.text))
         init_settings = json.loads(r.text)
         
         if not init_settings['success']:
             print("Already too many players in the game, restart the nodeserver.")
             exit()
-
-        # Måste konvertera från index i spelplanen till 
-        # numeriska värdena.
 
         # Init game 
         self.init_map(init_settings)

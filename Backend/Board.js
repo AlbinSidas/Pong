@@ -55,7 +55,7 @@ class Board {
     }
 
     collisionCheck(){
-
+        
     }
   
     updateTick(){
