@@ -1,4 +1,5 @@
 import requests
+import json
 import pygame
 import pygame.locals
 from uuid import uuid4
@@ -19,10 +20,37 @@ class Screen():
                                      board_width_offset = self.screen_width / 5,
                                      board_height_offset = self.screen_height / 4)
         
+
+
     def create_unique_id(self):
         return str(uuid4())
 
-    def start(self):
+    def start(self, baseURL):
+
+        r = requests.get(baseURL + f"/initialize?id={self.identity}")
+        #print(json.loads(r.text))
+        init_settings = json.loads(r.text)
+        print(init_settings)
+        print(init_settings)
+        
+        if not init_settings['success']:
+            print("Already too many players in the game, restart the nodeserver.")
+            exit()
+
+        # Måste konvertera från index i spelplanen till 
+        # numeriska värdena.
+
+        """
+        Get init settings from the server and initialize the gameboard
+        after that.
+        self.game_board = Game_Board(tile_size = 10, 
+                                     n_tiles_width=25,
+                                     n_tiles_height=25,
+                                     board_width_offset = self.screen_width / 5,
+                                     board_height_offset = self.screen_height / 4)
+        )
+        """
+        
         pygame.init()
         screen = pygame.display.set_mode((self.screen_width, self.screen_height))
         font = pygame.font.get_default_font()
@@ -102,7 +130,6 @@ class Screen():
             # Låt board hantera sin egen render då den kommer hålla world
             self.game_board.render(screen, font)
         
-        
         pygame.display.update()
         pygame.display.flip()
         
@@ -113,4 +140,4 @@ class Screen():
 
 if __name__ == '__main__':
     client = Screen()
-    client.start()
+    client.start("http://localhost:3000")
