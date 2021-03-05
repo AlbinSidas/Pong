@@ -21,28 +21,23 @@ class Player {
         return Math.ceil(topToBottom / time);
     }
 
-    move(timeSinceUpdate, action) {
+    update(timeSinceUpdate, action) {
+      console.log("Update player")
       // Calculate time moved since last update
       // Set new X Y
       
       let secondsSinceUpdate = timeSinceUpdate * 1000
-      tilesToMove = this.speed * secondsSinceUpdate;
-
-
-
-      /* Hur mycket ska en spelare röra sig per sekund? */
-      /* 
-        Kanske sätta ungefär 1.5s uppifrån och ned?
-      */
-
+      let tilesToMove = this.speed * secondsSinceUpdate;
 
       switch(action) {
         case "up":
+          console.log("UPP")
+          this.y += tilesToMove;
           
-          // code block
           break;
         case "down":
-          // code block
+          console.log("NER")
+          this.y -= tilesToMove;
           break;
         /*
         case "right":

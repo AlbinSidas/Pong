@@ -18,7 +18,6 @@ class Board {
       }
 
       this.initializeBall();
-
     }
    
     initializeGameboard() {
@@ -47,15 +46,58 @@ class Board {
     }
 
     initializeBall(){
+        // Find a random tile in X-axis
+        let x_direction = Math.floor(Math.random() * this.boardWidth - 2);
+        let y_direction = Math.floor(Math.random() * this.boardHeight);
+        let target = [x_direction, y_direction];
+
         /* Initialize ball to middle of the board */
         let startY = Math.floor(this.gameBoard.length / 2);
         let startX = Math.floor(this.gameBoard[0].length / 2);
-        let ball = new Ball(startX, startY)
+        let ball = new Ball(startX, startY, target=target)
         this.entities.balls.push(ball);
     }
 
     collisionCheck(){
+        // Använd denna i move och när updateringar ska göras
+    }
 
+    controlEntities(){
+        this.entities.players.forEach(player =>{
+            // Handles if player tries to go outside world
+            if (player.y - player.height > this.boardHeight) {
+                player.y = this.boardHeight;
+            }
+            else if(player.y < 0){
+                player.y = 0
+            }
+        })
+
+        this.entities.balls.forEach(ball => {
+          if (ball.y - ball.height > this.boardHeight) {
+            ball.y = this.boardHeight;
+            /*
+            Ändra direction baserat på vad den träffar
+            ball.changeDirection();
+            */
+          } else if (ball.y < 0){
+            ball.y = 0;
+            /*
+            Ändra direction baserat på vad den träffar
+            ball.changeDirection();
+            */
+          } else if (ball.x < 0) {
+              for(var i ; i < 10; i++){
+                  console.log("Right player won!")
+              }
+          } else if (ball.x > this.boardWidth) {
+              for(var i ; i < 10; i++){
+                console.log("Left player won!")
+
+              }  
+          }
+
+        })
     }
   
     updateTick(){

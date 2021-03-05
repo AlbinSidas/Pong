@@ -23,9 +23,11 @@ class Game_State:
                 game_over = True
 
             # Skicka req här för att få tillbaka mitt state efter min senaste action
-            state = requests.get("http://localhost:3000/move?action=" + str(action) + "id=" + self.world.identity)
+            state = requests.get("http://localhost:3000/move?action=" + str(action) + "&id=" + self.world.identity)
 
             self.world.render(screen, font, self.game_state)
+
+            # Denna bestämmer hur ofta klienten skicar requests mot servern
             clock.tick(5)
             
         return outcome

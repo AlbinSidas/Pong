@@ -15,7 +15,6 @@ let d = new Date();
 let lastUpdate = d.getTime();
 let timeSinceUpdate = (d.getTime() - lastUpdate);
 
-
 app.get('/initialize', (req, res) => {
     let playerID = req.query.id;
    
@@ -56,9 +55,11 @@ app.get('/move', (req, res) => {
 
       Samma sak, uppdatera board endast på efter X delay
     */
+    d = new Date();
     currUpdate = d.getTime();
-    timeSinceUpdate = currUpdate - timeSinceUpdate;
-    
+    timeSinceUpdate = currUpdate - lastUpdate;
+
+    // Verkar ligga på ungefär 200 på min laptop
     // 0.1s (~10frames per sec)
     if (timeSinceUpdate > 100){
         lastUpdate = currUpdate;
@@ -72,17 +73,14 @@ app.get('/move', (req, res) => {
     let identification = req.query.id;
 
     // Uppdatera bollposition
-    this.entities.balls.forEach(ball => {
+    gameBoard.entities.balls.forEach(ball => {
         ball.update(timeSinceUpdate);
     })
 
     if (action == "Not pressed"){
         res.send(gameBoard);
     } else {
-        //update_pos
-        // Bara ta ut rätt id player
-        // Ändra på dess koordinater
-        let player = this.entities.players.filter(player => player.id == identification);
+        let player = gameBoard.entities.players.filter(player => player.id == identification)[0];
         player.update(timeSinceUpdate, action);
 
         //gameBoard.entities.updatePlayer(action, id);
@@ -91,7 +89,7 @@ app.get('/move', (req, res) => {
     // Ta ut rätt player baserat på id
 
 
-    res.send('Hello World!');
+    //res.send('Hello World!');
 })
 
 app.listen(port, () => {
