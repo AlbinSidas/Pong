@@ -30,6 +30,16 @@ class Screen():
         r = requests.get(baseURL + f"/initialize?id={self.identity}")
         #print(json.loads(r.text))
         init_settings = json.loads(r.text)
+        print(init_settings)
+        print(init_settings)
+        
+        if not init_settings['success']:
+            print("Already too many players in the game, restart the nodeserver.")
+            exit()
+
+        # Måste konvertera från index i spelplanen till 
+        # numeriska värdena.
+
         """
         Get init settings from the server and initialize the gameboard
         after that.

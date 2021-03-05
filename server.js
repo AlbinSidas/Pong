@@ -1,33 +1,39 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const app = express();
+const port = 3000;
 
-var players = []
+const Board = require('./Backend/Board.js');
 
-initialize_gameboard = function(x, y) {
-    // Starta upp spelet med X rader
-    var game_board= new Array(y)
 
-    for (row in games_state) {
-        games_state[row].append(new Array(x))
-    }
+//import {Player} from './Backend/Entities/Player.js'
+//import {Ball} from './Backend/Entities/Player.js'
 
-    return game_board
-}
 
-var game_loop = function() {
-    var game_state = initialize_gamestate()
-}
+//let players = []
+var gameBoard = null;
 
-var update_state = async function() {
+let update_state = async function() {
     // Sends states to the gameclients
 }
 
 app.get('/initialize', (req, res) => {
-  console.log("INIT")
-  console.log(req.query)
-  // I query ligger id= playerid som playerobjektet ska instansieras med
-  res.send({greeting:'Hello World!'})
+    let playerID = req.query.id;
+   
+    // Success indicates successfully adding a new player.
+    let success = true;
+    if (gameBoard == null){
+        gameBoard = new Board(40,50);
+        success = gameBoard.initializePlayer(playerID);
+    } else {
+        // There is a active board and therefore also a connected player
+        success = gameBoard.initializePlayer(playerID);
+        // If there are already 2 players playing an error message will be shown to further players.
+    } 
+
+    gameBoard.success = success;
+    console.log(gameBoard)
+    // I query ligger id= playerid som playerobjektet ska instansieras med
+    res.send(gameBoard);
 })
 
 app.get('/move', (req, res) => {

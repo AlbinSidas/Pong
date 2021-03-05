@@ -25,5 +25,6 @@ Tankar inför backend:
 
   - Kanske går att kolla på timestamps för varje move, och uppdatera varje 0.1s eller liknande?
 
-5. Done?
+5. Hantera att rita ut spelare korrekt å den sida de är på just nu
+
 
