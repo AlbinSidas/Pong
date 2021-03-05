@@ -40,7 +40,6 @@ class Board {
         // Also moving them in one step to not be within walls
         let startX = this.entities.players.length == 0 ? 1 : this.gameBoard[0].length - 2;
         let startY = Math.floor(this.gameBoard.length / 2);
-        
         let player = new Player(startX, startY, id);        
         this.entities.players.push(player);
         
@@ -48,6 +47,7 @@ class Board {
     }
 
     initializeBall(){
+        /* Initialize ball to middle of the board */
         let startY = Math.floor(this.gameBoard.length / 2);
         let startX = Math.floor(this.gameBoard[0].length / 2);
         let ball = new Ball(startX, startY)
@@ -55,13 +55,11 @@ class Board {
     }
 
     collisionCheck(){
-        
+
     }
   
     updateTick(){
         console.log("TICK")
-        // Make the call to the clients
-        fetch()
     }
   }
 

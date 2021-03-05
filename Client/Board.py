@@ -14,7 +14,6 @@ class Game_Board:
         
         # Initialize world
         self.world = self.create_map()
-        
         self.entities = []
 
     def init_entities(self, entities, client_identification):
@@ -67,20 +66,13 @@ class Game_Board:
         pygame.draw.rect(screen, 0, (self.board_width_offset, self.board_height_offset,
                                      self.tile_size*self.map_width, self.tile_size*self.map_height), 1)
 
-        self.drawer(screen)
+        self.draw_entities(screen)
         
         pygame.display.update()
         pygame.display.flip()
 
-    def drawer(self, screen):
-        print("INNE I DRAWER", self.entities)
-        """
-        for lines in self.world:
-            for tile in lines:
-                pygame.draw.rect(screen, 0,(tile[0], tile[1],
-                                            self.tile_size, self.tile_size),1)
-
-        """
+    def draw_entities(self, screen):
+        
         for entity in self.entities:
             pygame.draw.rect(screen, entity.color, 
                             entity.get_entity_drawing_props())

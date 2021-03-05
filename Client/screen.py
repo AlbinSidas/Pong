@@ -12,22 +12,22 @@ class Screen():
         self.screen_width = 1200
         self.screen_height = 960
         self.world_position = ()
+
+        url = "http://localhost:3000"
+        r = requests.get(url + f"/initialize?id={self.identity}")
+        init_settings = json.loads(r.text)
         
-        # Gameboard
-        """
-        self.game_board = Game_Board(tile_size = 10, 
-                                     n_tiles_width=25,
-                                     n_tiles_height=25,
-                                     board_width_offset = self.screen_width / 5,
-                                     board_height_offset = self.screen_height / 4)
-        
-        """
+        if not init_settings['success']:
+            print("Already too many players in the game, restart the nodeserver.")
+            exit()
+
         self.game_board = None
+        self.init_game(init_settings)
 
     def create_unique_id(self):
         return str(uuid4())
 
-    def init_map(self, init_settings):
+    def init_game(self, init_settings):
         tile_size = init_settings['tileSize']
         width = init_settings['boardWidth']
         height = init_settings['boardHeight']
@@ -40,22 +40,12 @@ class Screen():
                                      board_width_offset = self.screen_width / 5,
                                      board_height_offset = self.screen_height / 4)
         
-
-
-    def start(self, baseURL):
-
-        r = requests.get(baseURL + f"/initialize?id={self.identity}")
-        init_settings = json.loads(r.text)
-        
-        if not init_settings['success']:
-            print("Already too many players in the game, restart the nodeserver.")
-            exit()
-
-        # Init game 
-        self.init_map(init_settings)
         entities = init_settings['entities']
         self.game_board.init_entities(entities, self.identity)
         
+
+
+    def start(self):        
         pygame.init()
         screen = pygame.display.set_mode((self.screen_width, self.screen_height))
         font = pygame.font.get_default_font()

@@ -3,12 +3,18 @@ const app = express();
 const port = 3000;
 const Board = require('./Backend/Board.js');
 
-//let players = []
-var gameBoard = null;
+let gameBoard = null;
+let key_converter = {
+    1073741906 : "up",
+    1073741905 : "down",
+    1073741904 : "left",
+    1073741903 : "right"
+};
 
-let update_state = async function() {
-    // Sends states to the gameclients
-}
+let d = new Date();
+let lastUpdate = d.getTime();
+let timeSinceUpdate = (d.getTime() - lastUpdate);
+
 
 app.get('/initialize', (req, res) => {
     let playerID = req.query.id;
@@ -17,7 +23,7 @@ app.get('/initialize', (req, res) => {
     let success = true;
     if (gameBoard == null){
         gameBoard = new Board(60,40);
-        success = gameBoard.initializePlayer(playerID);
+        success = gameBoard.initializePlayer(playerID, enviroment=40);
     } else {
         // There is a active board and therefore also a connected player
         success = gameBoard.initializePlayer(playerID);
@@ -27,27 +33,70 @@ app.get('/initialize', (req, res) => {
     gameBoard.success = success;
     
     // TODO OBS DENNA FÖR TESTANDE AV FRONTEND
-    //gameBoard.success = true;
+    gameBoard.success = true;
     
     res.send(gameBoard);
 })
 
 app.get('/move', (req, res) => {
-  /* A player makes a move 
-    Check identification of the player too see which player
-    is making a move
+    /* 
+      A player makes a move 
+      Check identification of the player too see which player
+      is making a move
 
-    Then update the gamestate accordingly.
-  */
-  res.send('Hello World!')
+      Then update the gamestate accordingly.
+    */
+
+    /* 
+      DETTA KOMMER VARA TICK FUNKTIONEN
+      DENNA BÖR ALLTSÅ GE TILLBAKA BOLLENS UPPDATERING
+
+      BOLLEN FÅR RÖRA SIG BASERAT PÅ SEVERNS KLOCKA
+      PÅ X TID RÖR DEN SIG DISTANS.
+
+      Samma sak, uppdatera board endast på efter X delay
+    */
+    currUpdate = d.getTime();
+    timeSinceUpdate = currUpdate - timeSinceUpdate;
+    
+    // 0.1s (~10frames per sec)
+    if (timeSinceUpdate > 100){
+        lastUpdate = currUpdate;
+    } else {
+        // If requests are more frequent, just return boardstate.
+        res.send(gameBoard);
+        return
+    }
+
+    let action = req.query.action;
+    let identification = req.query.id;
+
+    // Uppdatera bollposition
+    this.entities.balls.forEach(ball => {
+        ball.update(timeSinceUpdate);
+    })
+
+    if (action == "Not pressed"){
+        res.send(gameBoard);
+    } else {
+        //update_pos
+        // Bara ta ut rätt id player
+        // Ändra på dess koordinater
+        let player = this.entities.players.filter(player => player.id == identification);
+        player.update(timeSinceUpdate, action);
+
+        //gameBoard.entities.updatePlayer(action, id);
+        res.send(gameBoard);
+    }
+    // Ta ut rätt player baserat på id
+
+
+    res.send('Hello World!');
 })
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
-
 })
-
-
 
 
 
