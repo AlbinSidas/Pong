@@ -14,24 +14,40 @@ class Screen():
         self.world_position = ()
         
         # Gameboard
+        """
         self.game_board = Game_Board(tile_size = 10, 
                                      n_tiles_width=25,
                                      n_tiles_height=25,
                                      board_width_offset = self.screen_width / 5,
                                      board_height_offset = self.screen_height / 4)
         
-
+        """
+        self.game_board = None
 
     def create_unique_id(self):
         return str(uuid4())
+
+    def init_map(self, init_settings):
+        tile_size = init_settings['tileSize']
+        width = init_settings['boardWidth']
+        height = init_settings['boardHeight']
+
+        # Get init settings from the server and initialize the gameboard
+        # after that.
+        self.game_board = Game_Board(tile_size = tile_size, 
+                                     n_tiles_width=width,
+                                     n_tiles_height=height,
+                                     board_width_offset = self.screen_width / 5,
+                                     board_height_offset = self.screen_height / 4)
+        
+
 
     def start(self, baseURL):
 
         r = requests.get(baseURL + f"/initialize?id={self.identity}")
         #print(json.loads(r.text))
         init_settings = json.loads(r.text)
-        print(init_settings)
-        print(init_settings)
+        
         
         if not init_settings['success']:
             print("Already too many players in the game, restart the nodeserver.")
@@ -39,17 +55,8 @@ class Screen():
 
         # Måste konvertera från index i spelplanen till 
         # numeriska värdena.
-
-        """
-        Get init settings from the server and initialize the gameboard
-        after that.
-        self.game_board = Game_Board(tile_size = 10, 
-                                     n_tiles_width=25,
-                                     n_tiles_height=25,
-                                     board_width_offset = self.screen_width / 5,
-                                     board_height_offset = self.screen_height / 4)
-        )
-        """
+    
+        self.init_map(init_settings)
         
         pygame.init()
         screen = pygame.display.set_mode((self.screen_width, self.screen_height))

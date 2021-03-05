@@ -16,7 +16,7 @@ app.get('/initialize', (req, res) => {
     // Success indicates successfully adding a new player.
     let success = true;
     if (gameBoard == null){
-        gameBoard = new Board(40,50);
+        gameBoard = new Board(60,40);
         success = gameBoard.initializePlayer(playerID);
     } else {
         // There is a active board and therefore also a connected player
@@ -24,8 +24,11 @@ app.get('/initialize', (req, res) => {
         // If there are already 2 players playing an error message will be shown to further players.
     } 
 
-    gameBoard.success = success;
+    //gameBoard.success = success;
+    
+    // TODO OBS DENNA FÖR TESTANDE AV FRONTEND
 
+    gameBoard.success = true;
     res.send(gameBoard);
 })
 
