@@ -29,6 +29,7 @@ app.get('/initialize', (req, res) => {
     // TODO OBS DENNA FÖR TESTANDE AV FRONTEND
 
     gameBoard.success = true;
+    
     res.send(gameBoard);
 })
 

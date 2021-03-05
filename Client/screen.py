@@ -48,15 +48,17 @@ class Screen():
         #print(json.loads(r.text))
         init_settings = json.loads(r.text)
         
-        
         if not init_settings['success']:
             print("Already too many players in the game, restart the nodeserver.")
             exit()
 
         # Måste konvertera från index i spelplanen till 
         # numeriska värdena.
-    
+
+        # Init game 
         self.init_map(init_settings)
+        entities = init_settings['entities']
+        self.game_board.init_entities(entities, self.identity)
         
         pygame.init()
         screen = pygame.display.set_mode((self.screen_width, self.screen_height))

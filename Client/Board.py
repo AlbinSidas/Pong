@@ -15,45 +15,21 @@ class Game_Board:
         # Initialize world
         self.world = self.create_map()
         
-        # Initialize default entities
         self.entities = []
-        #self.init_entities()
 
-    def init_entities(self):
-        """
-        DENNA FUNKTION BÖR GÖRAS OM FÖR ATT HANTERA
-        INPUT FRÅN SETTINGS SOM KOMMER FRÅN SERVERN
-        OCH DÄRMED INITIERA ENTITIES SPECIFIERAT FRÅN
-        SERVERN!
-        TODO OBS
-        """
-        # Find initial values for middle of the board.
-        height_middle = len(self.world) // 2
-        width_middle = len(self.world[0]) // 2
+    def init_entities(self, entities, client_identification):
+        for key in entities.keys():
+            if key == "players":
+                for player in entities[key]:
 
-        # Set global player plattform settings
-        player_width = 1
-        player_height = 4
+                    column = player['x']
+                    row = player['y']
+                    pos = (self.world[row][column], player['width'] * self.tile_size, player['height'] * self.tile_size)
 
-        ball_widht = 1
-        ball_height = 1
-        
-        # p1 will be on the left side starting in middle
-        p1_pos = [self.world[height_middle - (player_height//2)][1], player_width*self.tile_size, player_height*self.tile_size]
-        player1 = Player(*p1_pos, 255, True)
-        
-        # p2 will be on the right side starting in the middle
-        p2_pos = [(self.world[height_middle - player_height//2][-2]), player_width*self.tile_size, player_height*self.tile_size]
-        player2 = Player(*p2_pos, 255, False)
+                    player = Player(*pos, 255, player['id'] == client_identification)
+                    self.entities.append(player)
 
-        # Ball is spawned in the middle
-        ball_pos = (self.world[height_middle - ball_height][width_middle - 1], ball_widht*self.tile_size, ball_height*self.tile_size)
-        ball     = Ball(*ball_pos, 255)
 
-        self.entities.append(player1)
-        self.entities.append(player2)
-        self.entities.append(ball)
-        
     def create_map(self):
         """
         Returns a list with lists of tuples which symbolize every tile
@@ -87,7 +63,7 @@ class Game_Board:
         pygame.display.flip()
 
     def drawer(self, screen):
-        
+        print("INNE I DRAWER", self.entities)
         """
         for lines in self.world:
             for tile in lines:
@@ -96,5 +72,6 @@ class Game_Board:
 
         """
         for entity in self.entities:
+            print(entity)
             pygame.draw.rect(screen, entity.color, 
                             entity.get_entity_drawing_props())

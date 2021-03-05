@@ -35,14 +35,19 @@ class Board {
         if (this.entities.players.length == 2){
             return false;
         }
-
-        let startX = this.entities.players.length == 0 ? 0 : this.gameBoard[0].length - 1;
+        
+        // Also moving them in one step to not be within walls
+        let startX = this.entities.players.length == 0 ? 1 : this.gameBoard[0].length - 2;
         let startY = Math.floor(this.gameBoard.length / 2);
         
         let player = new Player(startX, startY, id);
         
         this.entities.players.push(player);
         return true;
+    }
+
+    initializeBall(){
+        // SKAPA BOLLEN
     }
 
     collisionCheck(){
