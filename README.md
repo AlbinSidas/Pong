@@ -19,12 +19,17 @@ Tankar inför backend:
 1. Skapa en funktion som bygger upp start state för en karta [CHECK]
 2. När denna karta skickas till klienterna ska klienten kunna rita upp denna [CHECK]
 3. När en klient gör en move, skicka denna till servern [CHECK]
-4. Servern tar emot move och uppdaterar state # OBS HA NÅGON SORTS SYNCHRONIZERING HÄR FÖR BÄGGE SPELARNA 
+4. Servern tar emot move och uppdaterar state # OBS HA NÅGON SORTS SYNCHRONIZERING HÄR FÖR BÄGGE SPELARNA [ KOLLA NÄRMARE PÅ DENNA DÅ SPELAR SOM JOINAR EFTER INTE RITAS UT]
 
-  - Kanske går att kolla på timestamps för varje move, och uppdatera varje 0.1s eller liknande?
+  - Kanske går att kolla på timestamps för varje move, och uppdatera varje 0.1s eller liknande? [CHECK]
 
-5. Hantera att rita ut spelare korrekt å den sida de är på just nu
-6. Hantera kollisioner för bollen (studsa i väggar och mot spelare)
+5. Hantera att rita ut spelare korrekt å den sida de är på just nu [FAIL?]
+6. Hantera kollisioner för bollen (studsa i väggar och mot spelare) [FUNKAR EJ JUST NU]
 
 
 Gör globala sökningar på TODO och OBS för att finna saker att arbeta vidare på.
+
+
+## TODO efter 8/3
+1. Se till att spelare ritas ut på första klienten
+2. Se till att kollision fungerar efter att en spelare har flyttat sig, vet ejvarför denna bråkar.

@@ -43,8 +43,6 @@ class Screen():
         entities = init_settings['entities']
         self.game_board.init_entities(entities)
         
-
-
     def start(self):        
         pygame.init()
         screen = pygame.display.set_mode((self.screen_width, self.screen_height))
@@ -86,13 +84,6 @@ class Screen():
 
                 # Enterkey
                 if key == "13":
-                    # TODO
-                    """
-                    Kommer endast att vara ett start alternativ. 
-                    Bör redan ha fått information om start states från 
-                    servern här, alltså bör en request skicaks typ direkt för att spela 
-                    där id etc är skickat till backenden. 
-                    """
                     if choice == 0:
                         
                         game = Game_State(self)
@@ -120,8 +111,6 @@ class Screen():
         
     def text(self, font, text, color = (0,0,0)):
         return font.render(text, False, color)
-
-
 
 if __name__ == '__main__':
     client = Screen()

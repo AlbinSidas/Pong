@@ -54,49 +54,52 @@ class Board {
     }
 
     collisionCheck(){
-        // Använd denna i move och när updateringar ska göras
-    }
-
-    controlEntities(){
-        this.entities.players.forEach(player =>{
-            // Handles if player tries to go outside world
-            if (player.y - player.height > this.boardHeight) {
-                player.y = this.boardHeight;
-            }
-            else if(player.y < 0){
-                player.y = 0
-            }
-        })
-
+        // This assumes a player might b able to move in right and
+        // left manners also
+        
+        // For each ball, check if player is on either side, else
+        // just continue
         this.entities.balls.forEach(ball => {
-          if (ball.y - ball.height > this.boardHeight) {
-            ball.y = this.boardHeight;
-            /*
-            Ändra direction baserat på vad den träffar
-            ball.changeDirection();
-            */
-          } else if (ball.y < 0){
-            ball.y = 0;
-            /*
-            Ändra direction baserat på vad den träffar
-            ball.changeDirection();
-            */
-          } else if (ball.x < 0) {
-              for(var i ; i < 10; i++){
-                  console.log("Right player won!")
+           this.entities.players.forEach(player => {
+              // Check right or left
+
+              /* 
+                Kolla om en boll korsar en player i X led
+
+                Då måste jag veta vilken sida spelaren är på
+
+              */
+              //console.log(player.x + player.width, ball.x)
+              //console.log(player.x + player.width == ball.x - 1);
+
+              if (player.x <= Math.floor(this.boardWidth / 2)){
+                  // left player
+                  if (ball.x + ball.directionX + ball.width <= player.x + player.width && ball.x + ball.width >= player.x + player.width){
+                    // Ball is to the left of left player after updating direction
+
+                    // If player is in way of the ball
+                    if (player.y >= ball.y && player.y - player.width <= ball.y){
+                        console.log("BOUNCE LEFT")
+                        ball.bounce(player.x + player.width)
+                    }
+
+                  }
+              } else {
+                  //right player
+                  if (ball.x + ball.directionX >= player.x + player.width && ball.x <= player.x + player.width){
+                    // Ball is to the left of left player after updating direction
+
+                    // If player is in way of the ball
+                    if (player.y >= ball.y && player.y - player.width <= ball.y){
+                        console.log("BOUNCE Right")
+                        ball.bounce(player.x)
+                    }
+
+                  }
               }
-          } else if (ball.x > this.boardWidth) {
-              for(var i ; i < 10; i++){
-                console.log("Left player won!")
-
-              }  
-          }
-
+          })
+           
         })
-    }
-  
-    updateTick(){
-        console.log("TICK")
     }
   }
 

@@ -20,7 +20,6 @@ class Game_Board:
         for key in entities.keys():
             if key == "players":
                 for player in entities[key]:
-
                     column = player['x']
                     row = player['y']
                     pos = (self.world[row][column], player['width'], player['height'])
@@ -34,10 +33,8 @@ class Game_Board:
                     row = ball['y']
                     pos = (self.world[row][column], ball['width'], ball['height'])
 
-                    ball = Ball(*pos, 255, self.tile_size)
+                    ball = Ball(*pos, 100, self.tile_size)
                     self.entities.append(ball)
-            
-
 
     def create_map(self):
         """
