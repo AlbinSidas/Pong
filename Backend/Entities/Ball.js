@@ -9,9 +9,8 @@ class Ball {
         this.boardHeight = boardHeight;
         this.boardWidth = boardWidth;
 
-        this.speed = this.calculateSpeedPerSecond(10);
+        this.speed = this.calculateSpeedPerSecond(8);
         
-        console.log(speed)
         // Initialize a random direction which the ball will take by
         // looking at how much the ball will move each update and take
         // a target X away from current position to that target.
@@ -35,12 +34,12 @@ class Ball {
       if (timeSinceUpdate > 1500) {
           return
       }
-
-      // De gånger det sker går det iterativt öka med 1 och sedan ta ut det som är kvar som nytt target
-      console.log(this.x, this.directionX)
+      
+      /* 
+      TODO 
+      LÖS WINCONDITION
+      */
       this.x += this.directionX;
-
-
       if (this.x >= this.boardWidth - 1){
         // Wincontdition
         console.log("BALLOUT X HIGHER than X (RIGHT")

@@ -3,7 +3,12 @@ import pygame
 
 class Human(Interface):
     def __init__(self):
-        pass
+        self.key_converter = {
+            1073741906 : "up",
+            1073741905 : "down",
+            1073741904 : "left",
+            1073741903 : "right"
+        }
 
     def get_action(self, world):
         key_l = []
@@ -11,7 +16,8 @@ class Human(Interface):
             pressed_key = "Not pressed"
 
             if event.type == pygame.locals.QUIT:
-                pressed_key = "Quit"                
+                return "Quit"   
+
             elif event.type == pygame.locals.KEYDOWN:
                 pressed_key = event.key
             
@@ -25,5 +31,5 @@ class Human(Interface):
         if len(action_list) == 0:
             return "Not pressed"
         else: 
-            return action_list[0]
+            return self.key_converter.get(action_list[0], "Not pressed")
         

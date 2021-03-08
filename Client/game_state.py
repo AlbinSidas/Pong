@@ -8,6 +8,7 @@ class Game_State:
     def __init__(self, screen):
         self.world = screen
 
+
     def start(self, screen, font):
         game_over = False
         clock = pygame.time.Clock()
@@ -25,7 +26,7 @@ class Game_State:
             # Skicka req här för att få tillbaka mitt state efter min senaste action
             response = requests.get("http://localhost:3000/move?action=" + str(action) + "&id=" + self.world.identity)
             state = json.loads(response.text)
-            
+
             self.world.game_board.update(state['gameBoard'], state['entities'])
             
             self.world.render(screen, font, True)

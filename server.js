@@ -4,12 +4,6 @@ const port = 3000;
 const Board = require('./Backend/Board.js');
 
 let gameBoard = null;
-let key_converter = {
-    1073741906 : "up",
-    1073741905 : "down",
-    1073741904 : "left",
-    1073741903 : "right"
-};
 
 let d = new Date();
 let lastUpdate = d.getTime();
@@ -38,30 +32,13 @@ app.get('/initialize', (req, res) => {
 })
 
 app.get('/move', (req, res) => {
-    /* 
-      A player makes a move 
-      Check identification of the player too see which player
-      is making a move
-
-      Then update the gamestate accordingly.
-    */
-
-    /* 
-      DETTA KOMMER VARA TICK FUNKTIONEN
-      DENNA BÖR ALLTSÅ GE TILLBAKA BOLLENS UPPDATERING
-
-      BOLLEN FÅR RÖRA SIG BASERAT PÅ SEVERNS KLOCKA
-      PÅ X TID RÖR DEN SIG DISTANS.
-
-      Samma sak, uppdatera board endast på efter X delay
-    */
     d = new Date();
     currUpdate = d.getTime();
     timeSinceUpdate = currUpdate - lastUpdate;
 
     // Verkar ligga på ungefär 200 på min laptop
     // 0.1s (~10frames per sec)
-   if (timeSinceUpdate > 200){
+   if (timeSinceUpdate > 50){
         lastUpdate = currUpdate;
     } else {
         // If requests are more frequent, just return boardstate.
@@ -86,10 +63,7 @@ app.get('/move', (req, res) => {
 
         res.send(gameBoard);
     }
-    // Ta ut rätt player baserat på id
 
-    console.log(gameBoard.entities.balls)
-    //res.send('Hello World!');
 })
 
 app.listen(port, () => {

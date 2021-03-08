@@ -65,16 +65,6 @@ class Screen():
         # if exited or if it should add new scores to highscore etc.
         outcome = []
 
-        # Converts a keystroke value (up, down, right, left) to values to
-        # add to choice.
-        key_converter = {
-            "273" : -1,
-            "274" : 1,
-            "275" : 1,
-            "276" : -1
-        }
-
-
         while not shut_down:
             self.render(screen, font)#, self.screen_height, self.screen_width)
             

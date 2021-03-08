@@ -10,9 +10,10 @@ class Player {
         this.width = width;
         this.height = height;
         this.id = id;
+        this.enviroment = enviroment;
 
         // Speed is implicitly tiles per second
-        this.speed = this.calculateSpeedPerSecond(2)
+        this.speed = this.calculateSpeedPerSecond(12)
     }
 
     calculateSpeedPerSecond(time){
@@ -22,23 +23,27 @@ class Player {
     }
 
     update(timeSinceUpdate, action) {
-      console.log("Update player")
       if (timeSinceUpdate > 1500) {
           return
       }
       
-      let secondsSinceUpdate = timeSinceUpdate * 1000
-      let tilesToMove = this.speed * secondsSinceUpdate;
+      //let secondsSinceUpdate = timeSinceUpdate * 1000;
+      //let tilesToMove = this.speed * secondsSinceUpdate;
 
       switch(action) {
         case "up":
-          console.log("UPP")
-          this.y += tilesToMove;
+          this.y -= this.speed;
+          if (this.y < 0){
+              this.y = 0;
+          }
+          
           
           break;
         case "down":
-          console.log("NER")
-          this.y -= tilesToMove;
+          this.y += this.speed;
+          if (this.y > this.enviroment - this.height) {
+            this.y = this.enviroment - this.height;
+        }
           break;
         /*
         case "right":
