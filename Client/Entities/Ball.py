@@ -2,11 +2,16 @@ from Entities.Moving_Entity import Entity
 
 class Ball(Entity):
 
-    def __init__(self, position, tiles_width, tiles_height, color):
-        self.position_x = position[0]
-        self.position_y = position[1]
-        self.width      = tiles_width
-        self.height     = tiles_height
+    def __init__(self, position, tiles_width, tiles_height, color, tile_size):
+        self.x          = position[0]
+        self.y          = position[1]
         self.color      = color
-        # speed, x, y
-        self.direction  = [1, 0, 0]
+        self.tile_size  = tile_size
+        self.width      = tiles_width * self.tile_size
+        self.height     = tiles_height * self.tile_size
+
+    def update(self, updated, world):
+        self.x = world[updated['y']][updated['x']][0]
+        self.y = world[updated['y']][updated['x']][1]
+        self.width = updated['width'] * self.tile_size
+        self.height = updated['height'] * self.tile_size

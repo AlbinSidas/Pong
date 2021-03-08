@@ -41,7 +41,7 @@ class Screen():
                                      board_height_offset = self.screen_height / 4)
         
         entities = init_settings['entities']
-        self.game_board.init_entities(entities, self.identity)
+        self.game_board.init_entities(entities)
         
 
 
@@ -115,10 +115,10 @@ class Screen():
 
         return outcome
                     
-    def render(self, screen, font, state=None):#, sw, sh):
+    def render(self, screen, font, in_game=False):#, sw, sh):
         screen.fill((255,255,255))
 
-        if state == None:
+        if not in_game:
             screen.blit(self.text(font, "Press enter to start the game!"), (self.screen_width / 2.5, (self.screen_height) / 4))
         
         else:            

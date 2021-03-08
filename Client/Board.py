@@ -16,25 +16,25 @@ class Game_Board:
         self.world = self.create_map()
         self.entities = []
 
-    def init_entities(self, entities, client_identification):
+    def init_entities(self, entities):
         for key in entities.keys():
             if key == "players":
                 for player in entities[key]:
 
                     column = player['x']
                     row = player['y']
-                    pos = (self.world[row][column], player['width'] * self.tile_size, player['height'] * self.tile_size)
+                    pos = (self.world[row][column], player['width'], player['height'])
 
-                    player = Player(*pos, 255, player['id'] == client_identification)
+                    player = Player(*pos, 255, player['id'], self.tile_size)
                     self.entities.append(player)
             
             elif key == 'balls':
                 for ball in entities[key]:
                     column = ball['x']
                     row = ball['y']
-                    pos = (self.world[row][column], ball['width'] * self.tile_size, ball['height'] * self.tile_size)
+                    pos = (self.world[row][column], ball['width'], ball['height'])
 
-                    ball = Ball(*pos, 255)
+                    ball = Ball(*pos, 255, self.tile_size)
                     self.entities.append(ball)
             
 
@@ -60,6 +60,19 @@ class Game_Board:
 
         return world
 
+    def update(self, world, entities):
+        for entity in self.entities:
+            upd_entity = None
+            
+            if type(entity) == Player:        
+                upd_entity = list(filter(lambda x: entity.identification == x['id'], entities['players']))[0]
+
+            elif type(entity) == Ball:
+                # Denna kan vara såhär i dagsläget med endast en boll
+                upd_entity = entities['balls'][0]
+            
+            entity.update(upd_entity, self.world)
+
     def render(self, screen, font, entities=[]):
         screen.fill((255, 255, 255))
 
@@ -72,7 +85,7 @@ class Game_Board:
         pygame.display.flip()
 
     def draw_entities(self, screen):
-        
         for entity in self.entities:
+            print(entity.get_entity_drawing_props())
             pygame.draw.rect(screen, entity.color, 
                             entity.get_entity_drawing_props())

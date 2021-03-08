@@ -1,12 +1,12 @@
 import pygame
 from input_classes.human_interface import Human
 import requests
+import json
 
 class Game_State:
 
     def __init__(self, screen):
         self.world = screen
-        self.game_state = self.world.game_board
 
     def start(self, screen, font):
         game_over = False
@@ -17,15 +17,18 @@ class Game_State:
 
         while not game_over:
 
-            action = interface.get_action(self.game_state)
+            action = interface.get_action(self.world.game_board)
 
             if action == "Quit":
                 game_over = True
 
             # Skicka req här för att få tillbaka mitt state efter min senaste action
-            state = requests.get("http://localhost:3000/move?action=" + str(action) + "&id=" + self.world.identity)
-
-            self.world.render(screen, font, self.game_state)
+            response = requests.get("http://localhost:3000/move?action=" + str(action) + "&id=" + self.world.identity)
+            state = json.loads(response.text)
+            
+            self.world.game_board.update(state['gameBoard'], state['entities'])
+            
+            self.world.render(screen, font, True)
 
             # Denna bestämmer hur ofta klienten skicar requests mot servern
             clock.tick(5)

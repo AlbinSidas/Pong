@@ -61,7 +61,7 @@ app.get('/move', (req, res) => {
 
     // Verkar ligga på ungefär 200 på min laptop
     // 0.1s (~10frames per sec)
-    if (timeSinceUpdate > 100){
+   if (timeSinceUpdate > 200){
         lastUpdate = currUpdate;
     } else {
         // If requests are more frequent, just return boardstate.
@@ -72,6 +72,7 @@ app.get('/move', (req, res) => {
     let action = req.query.action;
     let identification = req.query.id;
 
+    
     // Uppdatera bollposition
     gameBoard.entities.balls.forEach(ball => {
         ball.update(timeSinceUpdate);
@@ -83,12 +84,11 @@ app.get('/move', (req, res) => {
         let player = gameBoard.entities.players.filter(player => player.id == identification)[0];
         player.update(timeSinceUpdate, action);
 
-        //gameBoard.entities.updatePlayer(action, id);
         res.send(gameBoard);
     }
     // Ta ut rätt player baserat på id
 
-
+    console.log(gameBoard.entities.balls)
     //res.send('Hello World!');
 })
 

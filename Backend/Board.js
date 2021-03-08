@@ -37,8 +37,8 @@ class Board {
         }
         
         // Also moving them in one step to not be within walls
-        let startX = this.entities.players.length == 0 ? 1 : this.gameBoard[0].length - 2;
-        let startY = Math.floor(this.gameBoard.length / 2);
+        let startX = this.entities.players.length == 0 ? 1 : this.boardWidth - 2;
+        let startY = Math.floor(this.boardHeight / 2);
         let player = new Player(startX, startY, id);        
         this.entities.players.push(player);
         
@@ -46,15 +46,10 @@ class Board {
     }
 
     initializeBall(){
-        // Find a random tile in X-axis
-        let x_direction = Math.floor(Math.random() * this.boardWidth - 2);
-        let y_direction = Math.floor(Math.random() * this.boardHeight);
-        let target = [x_direction, y_direction];
-
         /* Initialize ball to middle of the board */
-        let startY = Math.floor(this.gameBoard.length / 2);
-        let startX = Math.floor(this.gameBoard[0].length / 2);
-        let ball = new Ball(startX, startY, target=target)
+        let startY = Math.floor(this.boardHeight / 2);
+        let startX = Math.floor(this.boardWidth / 2);
+        let ball = new Ball(startX, startY, this.boardHeight, this.boardWidth)
         this.entities.balls.push(ball);
     }
 

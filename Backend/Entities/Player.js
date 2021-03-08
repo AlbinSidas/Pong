@@ -23,8 +23,9 @@ class Player {
 
     update(timeSinceUpdate, action) {
       console.log("Update player")
-      // Calculate time moved since last update
-      // Set new X Y
+      if (timeSinceUpdate > 1500) {
+          return
+      }
       
       let secondsSinceUpdate = timeSinceUpdate * 1000
       let tilesToMove = this.speed * secondsSinceUpdate;
