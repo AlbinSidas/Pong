@@ -13,16 +13,6 @@ class Screen():
         self.screen_height = 960
         self.world_position = ()
 
-        url = "http://localhost:3000"
-        r = requests.get(url + f"/initialize?id={self.identity}")
-        init_settings = json.loads(r.text)
-        
-        if not init_settings['success']:
-            print("Already too many players in the game, restart the nodeserver.")
-            exit()
-
-        self.game_board = None
-        self.init_game(init_settings)
 
     def create_unique_id(self):
         return str(uuid4())
@@ -53,9 +43,6 @@ class Screen():
         # Checks if user wants to close the game. 
         shut_down = False
 
-        # This will mark the current choosen menu alternative.
-        choice = 0
-
         # This will hold information about which keys has been pressed this loop.
         key_list = []
 
@@ -82,15 +69,29 @@ class Screen():
             if len(key_list) != 0:
                 key = key_list.pop()
 
+                url = "http://localhost:3000"
+                    
                 # Enterkey
                 if key == "13":
-                    if choice == 0:
                         
-                        game = Game_State(self)
-                        outcome = game.start(screen, font) 
+                    r = requests.get(url + f"/initialize?id={self.identity}")
+                    init_settings = json.loads(r.text)
+                    
+                    if not init_settings['success']:
+                        print("Already too many players in the game, restart the nodeserver.")
+                        exit()
+
+                    self.game_board = None
+                    self.init_game(init_settings)
+
+                    game = Game_State(self)
+                    outcome = game.start(screen, font) 
 
                     if len(outcome) == 0:
                         shut_down = True
+                
+                if key == "114":
+                    r = requests.get(url + f"/reset")
 
                 clock.tick(5)
 
@@ -114,4 +115,4 @@ class Screen():
 
 if __name__ == '__main__':
     client = Screen()
-    client.start("http://localhost:3000")
+    client.start()

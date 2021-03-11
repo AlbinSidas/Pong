@@ -29,6 +29,11 @@ app.get('/initialize', (req, res) => {
     res.send(gameBoard);
 })
 
+app.get('/reset', (req, res) => {
+    gameBoard = null;
+    res.send("OK")
+})
+
 app.get('/move', (req, res) => {
     d = new Date();
     currUpdate = d.getTime();
