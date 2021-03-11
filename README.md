@@ -6,8 +6,34 @@ The requirements where:
 * Languages and stacks are decided by the programmer. 
 * The project should take hours and not days to complete. (It doesn't need to be perfect)
 
+## Setup
+Run this command in the root directory togehter with package files for node.
+```
+npm install
+```
+Next move into the `Client` directory to do:
+```
+pip3 -r install requirements.txt
+``` 
+Now all dependencies should be done. <br>
+Next is to start the Node server with:<br>
+```
+node server.js
+```
+Then it's free to start the clients:
+```
+python3 Client/main.py
+```
+
+
 ## Tech argumentation:
 I've choosen a Python3 frontend and a node Express backend to fulfill this task as I've previously created a game in pyGame (although fully local) and have had experience with how pyGame handles inputs and drawing on the local client. Express is used as this is what I have most previous experiance with from work and school, although a better backendserver would probably be a Go-server to have better control over parallelisations, hard-typed instances of objects etc. But as the task is said to take shorter time I've opted for techniques in which i have the most previous experience.  
+
+
+
+## Estimated worktime ~12.5hrs
+With inspiration of structure of a previously developed snake game:<br>
+https://github.com/AlbinSidas/Snake/tree/master/Snake-v2.0
 
 ## Author
 Albin Sidås <br>

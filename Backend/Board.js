@@ -52,7 +52,8 @@ class Board {
         let ball = new Ball(startX, startY, this.boardHeight, this.boardWidth)
         this.entities.balls.push(ball);
     }
-
+    
+    /*
     collisionCheck(){
         // This assumes a player might b able to move in right and
         // left manners also
@@ -61,46 +62,32 @@ class Board {
         // just continue
         this.entities.balls.forEach(ball => {
            this.entities.players.forEach(player => {
-              // Check right or left
-
-              /* 
-                Kolla om en boll korsar en player i X led
-
-                Då måste jag veta vilken sida spelaren är på
-
-              */
-              //console.log(player.x + player.width, ball.x)
-              //console.log(player.x + player.width == ball.x - 1);
-
               if (player.x <= Math.floor(this.boardWidth / 2)){
                   // left player
                   if (ball.x + ball.directionX + ball.width <= player.x + player.width && ball.x + ball.width >= player.x + player.width){
-                    // Ball is to the left of left player after updating direction
+                        // Ball is to the left of left player after updating direction
 
-                    // If player is in way of the ball
-                    if (player.y >= ball.y && player.y - player.width <= ball.y){
-                        console.log("BOUNCE LEFT")
-                        ball.bounce(player.x + player.width)
+                        // If player is in way of the ball
+                        if (player.y >= ball.y && player.y - player.width <= ball.y){
+                            ball.bounce(player.x + player.width)
+                        }
                     }
-
-                  }
               } else {
-                  //right player
-                  if (ball.x + ball.directionX >= player.x + player.width && ball.x <= player.x + player.width){
-                    // Ball is to the left of left player after updating direction
+                    //right player
+                    if (ball.x + ball.directionX >= player.x + player.width && ball.x <= player.x + player.width){
+                        // Ball is to the left of left player after updating direction
 
-                    // If player is in way of the ball
-                    if (player.y >= ball.y && player.y - player.width <= ball.y){
-                        console.log("BOUNCE Right")
-                        ball.bounce(player.x)
-                    }
-
+                        // If player is in way of the ball
+                        if (player.y >= ball.y && player.y - player.width <= ball.y){
+                            ball.bounce(player.x)
+                        }
                   }
               }
           })
            
         })
     }
+    */
   }
 
   module.exports = Board

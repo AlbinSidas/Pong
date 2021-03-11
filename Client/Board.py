@@ -58,10 +58,15 @@ class Game_Board:
         return world
 
     def update(self, world, entities):
+        # Efter jhag skapade denna slutade 2nd player att fungera TODO
+        if len(entities['balls']) + len(entities['players']) != len(self.entities):
+            self.entities = []
+            self.init_entities(entities) # Reinitialize based on the config from server
+
         for entity in self.entities:
             upd_entity = None
             
-            if type(entity) == Player:        
+            if type(entity) == Player:
                 upd_entity = list(filter(lambda x: entity.identification == x['id'], entities['players']))[0]
 
             elif type(entity) == Ball:
@@ -83,6 +88,5 @@ class Game_Board:
 
     def draw_entities(self, screen):
         for entity in self.entities:
-            print(entity.get_entity_drawing_props())
             pygame.draw.rect(screen, entity.color, 
                             entity.get_entity_drawing_props())

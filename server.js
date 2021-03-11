@@ -44,8 +44,6 @@ app.get('/move', (req, res) => {
 
     let action = req.query.action;
     let identification = req.query.id;
-
-    //gameBoard.collisionCheck();
     
     gameBoard.entities.balls.forEach(ball => {
         ball.update(timeSinceUpdate, gameBoard.entities.players);

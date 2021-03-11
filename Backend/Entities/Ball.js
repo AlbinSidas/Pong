@@ -49,27 +49,25 @@ class Ball {
             if (player.x <= Math.floor(this.boardWidth / 2)){
                 // left player
                 if (this.x + this.directionX + this.width <= player.x + player.width && this.x + this.width >= player.x + player.width){
-                  // Ball is to the left of left player after updating direction
+                    // Ball is to the left of left player after updating direction
 
-                  // If player is in way of the ball
-                  if (player.y >= this.y && player.y - player.width <= this.y){
-                      let bounceDistance = Math.abs(this.directionX - (this.x - player.x));
-                      this.x = player.x + bounceDistance;
-                      this.directionX *= -1;
-                      collision = true;
-                  }
+                    // If player is in way of the ball
+                    if (player.y <= this.y && player.y + player.height >= this.y){
+                        let bounceDistance = Math.abs(this.directionX - (this.x - player.x));
+                        this.x = player.x + bounceDistance;
+                        this.directionX *= -1;
+                        collision = true;
+                    }
                   
                 }
             } else {
-                console.log(player.height)
                 //right player
                 if (this.x + this.directionX + this.width >= player.x && this.x + this.width <= player.x){
                     // Ball is to the left of left player after updating direction
 
                     // If player is in way of the ball
-                    if (player.y >= this.y && player.y - player.width <= this.y){
+                    if (player.y <= this.y && player.y + player.height >= this.y){
                       let bounceDistance = Math.abs(this.directionX - (player.x - (this.x + this.width)));
-
                       this.x = player.x - bounceDistance;
                       this.directionX *= -1;
                       collision = true;
@@ -77,6 +75,7 @@ class Ball {
                 }
             }
         })
+        
         return collision;
     }
     
