@@ -15,16 +15,16 @@ app.get('/initialize', (req, res) => {
     // Success indicates successfully adding a new player.
     let success = true;
     if (gameBoard == null){
-        gameBoard = new Board(60,40);
-        success = gameBoard.initializePlayer(playerID, enviroment=40);
+        gameBoard = new Board(80,50);
+        success = gameBoard.initializePlayer(playerID);
     } else {
         // There is a active board and therefore also a connected player
         success = gameBoard.initializePlayer(playerID);
+        gameBoard.initializeBall();
         // If there are already 2 players playing an error message will be shown to further players.
     } 
 
     gameBoard.success = success;
-    
     
     res.send(gameBoard);
 })

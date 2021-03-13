@@ -28,7 +28,7 @@ class Ball {
         // TODO
         this.directionX = 2;  
         this.directionY = 0;
-
+        
     }
 
     calculateSpeedPerSecond(time){

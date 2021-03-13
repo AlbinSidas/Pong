@@ -16,8 +16,6 @@ class Board {
           'players' :[],
           'balls'   :[]
       }
-
-      this.initializeBall();
     }
    
     initializeGameboard() {
@@ -39,7 +37,7 @@ class Board {
         // Also moving them in one step to not be within walls
         let startX = this.entities.players.length == 0 ? 1 : this.boardWidth - 2;
         let startY = Math.floor(this.boardHeight / 2);
-        let player = new Player(startX, startY, id);        
+        let player = new Player(startX, startY, id, this.boardHeight);
         this.entities.players.push(player);
         
         return true;
@@ -52,7 +50,7 @@ class Board {
         let ball = new Ball(startX, startY, this.boardHeight, this.boardWidth)
         this.entities.balls.push(ball);
     }
-    
+
     /*
     collisionCheck(){
         // This assumes a player might b able to move in right and

@@ -4,7 +4,7 @@ som kan hålla i attribut som x, y, höjd, bredd, speed då alla
 dessa attribut är desamma för entities som rör sig på spelbrädet. 
 */
 class Player {
-    constructor(start_x, start_y, id, enviroment=40, width=1, height=5) {
+    constructor(start_x, start_y, id, enviroment, width=1, height=5) {
         this.x = start_x;
         this.y = start_y;
         this.width = width;
@@ -36,8 +36,6 @@ class Player {
           if (this.y < 0){
               this.y = 0;
           }
-          
-          
           break;
         case "down":
           this.y += this.speed;
@@ -45,6 +43,7 @@ class Player {
             this.y = this.enviroment - this.height;
         }
           break;
+        /* If preffered right and left cna be added here*/
         default:
           // No action
       }
