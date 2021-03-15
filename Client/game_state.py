@@ -17,7 +17,6 @@ class Game_State:
         interface = Human()
 
         while not game_over:
-
             action = interface.get_action(self.world.game_board)
 
             if action == "Quit":

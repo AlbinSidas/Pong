@@ -50,42 +50,6 @@ class Board {
         let ball = new Ball(startX, startY, this.boardHeight, this.boardWidth)
         this.entities.balls.push(ball);
     }
+}
 
-    /*
-    collisionCheck(){
-        // This assumes a player might b able to move in right and
-        // left manners also
-        
-        // For each ball, check if player is on either side, else
-        // just continue
-        this.entities.balls.forEach(ball => {
-           this.entities.players.forEach(player => {
-              if (player.x <= Math.floor(this.boardWidth / 2)){
-                  // left player
-                  if (ball.x + ball.directionX + ball.width <= player.x + player.width && ball.x + ball.width >= player.x + player.width){
-                        // Ball is to the left of left player after updating direction
-
-                        // If player is in way of the ball
-                        if (player.y >= ball.y && player.y - player.width <= ball.y){
-                            ball.bounce(player.x + player.width)
-                        }
-                    }
-              } else {
-                    //right player
-                    if (ball.x + ball.directionX >= player.x + player.width && ball.x <= player.x + player.width){
-                        // Ball is to the left of left player after updating direction
-
-                        // If player is in way of the ball
-                        if (player.y >= ball.y && player.y - player.width <= ball.y){
-                            ball.bounce(player.x)
-                        }
-                  }
-              }
-          })
-           
-        })
-    }
-    */
-  }
-
-  module.exports = Board
+module.exports = Board

@@ -13,13 +13,13 @@ class Player {
         this.enviroment = enviroment;
 
         // Speed is implicitly tiles per second
-        this.speed = this.calculateSpeedPerSecond(12)
+        this.speed = this.calculateSpeedPerSecond(enviroment)
     }
 
     calculateSpeedPerSecond(time){
         /* Time it takes from top to bottom of map */
-        let topToBottom = this.enviroment - this.height;
-        return Math.ceil(topToBottom / time);
+        //let topToBottom = this.enviroment - this.height;
+        return Math.ceil(this.enviroment / time);
     }
 
     update(timeSinceUpdate, action) {

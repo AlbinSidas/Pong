@@ -12,7 +12,6 @@ class Player(Entity):
         self.height     = tiles_height * self.tile_size
         
     def update(self, updated, world):
-        
         self.x = world[updated['y']][updated['x']][0]
         self.y = world[updated['y']][updated['x']][1]
         self.width = updated['width'] * self.tile_size

@@ -5,47 +5,41 @@ class Ball {
         this.y = startY;
         this.width = width;
         this.height = height;
-        this.enviroment = boardHeight;
         this.boardHeight = boardHeight;
         this.boardWidth = boardWidth;
 
-        this.speed = this.calculateSpeedPerSecond(12);
+        // Boardheight indicates that it will have a speed of 1
+        this.speed = this.calculateSpeedPerSecond(boardHeight);
         
         // Initialize a random direction which the ball will take by
         // looking at how much the ball will move each update and take
         // a target X away from current position to that target.
-        
-        let targetX = Math.floor(Math.random() * this.speed);
-        while (targetX == 0){
-          targetX = Math.floor(Math.random() * this.speed);
+        this.directionX = Math.floor(Math.random() * this.speed) + 1;
+        if (Math.random() > 0.5) {
+          this.directionX *= -1;
         }
-        let targetY = Math.floor(Math.random() * this.speed);
 
-        this.directionX = targetX;
-        this.directionY = targetY;
-        
-        
-        // TODO
-        this.directionX = 2;  
-        this.directionY = 0;
-        
+        this.directionY = Math.floor(Math.random() * this.speed) + 1;
+        if (Math.random() > 0.5) {
+          this.directionX *= -1;
+        }
     }
 
     calculateSpeedPerSecond(time){
         /* Time it takes from top to bottom of map in a straight line*/
-        let topToBottom = this.enviroment - this.height;
-        return Math.ceil(topToBottom / time);
+        //let topToBottom = this.boardHeight - this.height;
+        return Math.ceil(this.boardHeight / time);
     }
 
     checkPlayerCollision(players){
         let collision = false;
+
+        /* 
+        This could also have easily implemented on which tile of the player it bounces, for example
+        if the ball bounces on the top of the player board it gets diected towards the top of the map 
+        */
         players.forEach(player => {
             // Check right or left
-
-            /* 
-              Efter man flyttat på sig så funkar inte kollisionen
-            */
-
             if (player.x <= Math.floor(this.boardWidth / 2)){
                 // left player
                 if (this.x + this.directionX + this.width <= player.x + player.width && this.x + this.width >= player.x + player.width){
@@ -88,7 +82,7 @@ class Ball {
       
       let gameDone = false;
       if (!this.checkPlayerCollision(players)){
-        // If no player collision, move the bacll and check windcondition
+        // If no player collision, move the ball and check win condition
         this.x += this.directionX;
         if (this.x >= this.boardWidth - 1){
           /*
@@ -145,14 +139,7 @@ class Ball {
         if (this.y == this.boardHeight) {
           this.y = 1;
         }
-      }
-      
-      
-      console.log("Time since update: ", timeSinceUpdate);
-
+      } 
     }
-  
 }
-
-  
 module.exports = Ball

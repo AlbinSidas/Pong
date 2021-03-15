@@ -42,4 +42,13 @@ Albin Sidås <br>
 ## Improvments:
 * Very "laggy feel" because the refreshrates are not well synced
 * Collision to the left is not correct which most likely is 
-  because sloppy maths in the bounce function of the ball
+  because sloppy maths in the bounce function of the ball most often when speed 
+  is quite high of ball
+* Holding down a key could easily be implemented by including a button down 
+  in the lookup table within game_state to check if a key have been let up, 
+  if not it request a new up action.
+* Would be good with a balance update to take speed of ball divided by some amount 
+  to set speed of players.
+* A better architecture than the current one would be to have socket connections towards
+  the gameserver and let the gameserver announce updates on a set intervall rather
+  than syncing requests depending on how often requests are arriving to the server. 
