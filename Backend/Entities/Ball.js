@@ -85,30 +85,20 @@ class Ball {
         // If no player collision, move the ball and check win condition
         this.x += this.directionX;
         if (this.x >= this.boardWidth - 1){
-          /*
-          // TODO
-          let bounceDistance = this.x - this.boardWidth;
-          this.x = this.boardWidth - bounceDistance;
-          */
-          // SET 0
+
           this.directionX *= 0;
   
           if (this.x >= this.boardWidth - 1) {
               this.x = this.boardWidth - 1;
-              
           }
           gameDone = true;
   
         } else if (this.x <= 0) {
           
-          // TODO 
-          //this.x = Math.abs(this.x)
-          
           this.x = 0;
           if (this.x == this.boardWidth) {
             this.x = 0;
           }
-          // SET 0
           this.directionX *= 0;
           gameDone = true;
         }

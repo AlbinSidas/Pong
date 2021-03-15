@@ -69,8 +69,9 @@ class Screen():
             if len(key_list) != 0:
                 key = key_list.pop()
 
+                #url = "http://ec2-13-49-15-244.eu-north-1.compute.amazonaws.com:3000"
                 url = "http://localhost:3000"
-                    
+                
                 # Enterkey
                 if key == "13":
                         

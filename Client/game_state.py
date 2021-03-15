@@ -23,7 +23,7 @@ class Game_State:
                 game_over = True
 
             # Skicka req här för att få tillbaka mitt state efter min senaste action
-            response = requests.get("http://localhost:3000/move?action=" + str(action) + "&id=" + self.world.identity)
+            response = requests.get("http://ec2-13-49-15-244.eu-north-1.compute.amazonaws.com:3000/move?action=" + str(action) + "&id=" + self.world.identity)
             state = json.loads(response.text)
 
             self.world.game_board.update(state['gameBoard'], state['entities'])
