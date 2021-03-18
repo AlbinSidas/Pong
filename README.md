@@ -52,3 +52,39 @@ Albin Sidås <br>
 * A better architecture than the current one would be to have socket connections towards
   the gameserver and let the gameserver announce updates on a set intervall rather
   than syncing requests depending on how often requests are arriving to the server. 
+
+## Feedback on the intervju and things that will not be changed by the author
+* The synchronization problems which can occur and manifest in that a player can not move is most likely
+  due to the implementation where the server checks how recent the most recent update was, if both clients
+  sends updates in that short timespan one of the clients will never get to send it's moves and therefore
+  on client does not get to make moves. 
+  
+* The server does not need to hold a 2d array rather it should just hold the dimensions as the only thing 
+that is checked are the boundries within the gameboard world
+
+* The collisionhandling fits better in the gameBoard serverside to let the game handle the collision rather
+than letting the ball handle collision towards other entities as this will force the ball to know of other entities. 
+
+* Only sending information with GET requests is not optimal in a security measure.
+
+* It's possible as the implementation holds right now for one client to start spamming updates while the ball 
+is on the opposing side of the board  to speed up the updatespeed and also the updates of the ball and make
+the ball move faster than the fixed rate. This is a problem which I tried to handle with "timeSinceUpdate" 
+yet this did not follow into the latest implementation and will cause problems if there's a malicious player.
+
+* Because of the request based architecture instead of a socket implementation the clients will send requests
+even when the player have not made a move and might therefore also overload the server. 
+
+* To more accuretly represent the serverstate of the board the initialization function of the entities could be
+used each time instead of creating instances of the entity classes and updating only the positions of these entities. 
+
+* The sizes of the entities should rather be within the entities rather being decided by the gameboard. 
+
+* Probably some more comments were made but those are the ones i remember after ~10hrs. 
+
+
+### Closing thoughts
+It was a very interesting project which gave me a heads up that I've got a lot to learn, especially in being able to handle
+more advanced networking between clients and especially within a server - client architecture. I could have used another tech-stack
+as using a javascript backend and a python3 frontend may seem a bit backwards to the usual case, and using already existing frameworks
+for a full python3 implementation could probably have worked better as python3 is the language I've worked in the longest. 
