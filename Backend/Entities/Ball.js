@@ -76,9 +76,7 @@ class Ball {
     update(timeSinceUpdate, players) {
       // Calculate time moved since last update
       // Set new X Y
-      if (timeSinceUpdate > 1500) {
-          return
-      }
+
       
       let gameDone = false;
       if (!this.checkPlayerCollision(players)){
